@@ -1,0 +1,60 @@
+body{
+    margin: 0;
+}
+.titlebar{
+    width: 100;
+    display: flex;
+    flex-direction: row;
+    align-items:center
+}
+.mainContainer{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.canvaContainer{
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+#canvas{
+    border: aquamarine 2px solid;
+    border-radius: 8px;
+}
+
+.controlpannel{
+    width: 100%;
+    background-color: gray;
+    display: flex;
+    flex-direction: row;
+    *{
+        margin: 0px 4px 0px 4px;
+    }
+}
+
+.playerInfo{
+    height: 100%;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}
+
+.playerCard{
+    width: 300px;
+    height: 40vh;
+    border: 3px solid salmon;
+}
+.playerStats{
+    height: 40vh;
+    border: 3px solid salmon;
+}
