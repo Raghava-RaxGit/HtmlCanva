@@ -11,6 +11,10 @@ export default class Sprite{
     }
 
     draw(ctx){
-        ctx.drawImage(this.image,this.x,this.y);
+        ctx.drawImage(this.image,
+            0,0,   //image crop start and end
+            32,32, //image crop width and height
+            0,0,   //location on canvas
+            32,32) //size to draw on canvas
     }
 }
