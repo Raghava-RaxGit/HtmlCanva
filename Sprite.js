@@ -8,13 +8,15 @@ export default class Sprite{
         this.image.onload = ()=>{
             this.isLoaded = true;
         };
+        this.frameW = config.frameW || 32
+        this.frameH = config.frameH || 32
     }
 
     draw(ctx){
         ctx.drawImage(this.image,
             0,0,   //image crop start and end
-            32,32, //image crop width and height
-            0,0,   //location on canvas
-            32,32) //size to draw on canvas
+            this.frameW,this.frameH, //image crop width and height
+            this.x,this.y,   //location on canvas
+            this.frameW,this.frameH) //size to draw on canvas
     }
 }

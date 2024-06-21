@@ -6,8 +6,7 @@ export default class GameObject{
         this.sprite = new Sprite({
             x:config.x,
             y:config.y,
-            src:config.src,
-            
+            src:config.src
         })
     }
 }
