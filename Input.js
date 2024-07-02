@@ -5,48 +5,41 @@ export const DOWN = "DOWN"
 
 export class Input {
   constructor() {
-
+    this.map={
+      "ArrowUp":UP,
+      "ArrowDown":DOWN,
+      "ArrowLeft":LEFT,
+      "ArrowRight":RIGHT,
+      "KeyW":UP,
+      "KeyS":DOWN,
+      "KeyA":LEFT,
+      "KeyD":RIGHT,
+    }
+    this.KeyUp = (e) => {
+      this.onArrowReleased(this.map[e.code]);
+    }
+    this.KeyDown = (e) => {
+      this.onArrowPressed(this.map[e.code]);
+    }
     this.heldDirections = [];
-
-    document.addEventListener("keydown", (e) => {
-      // Also check for dedicated direction list
-      if (e.code === "ArrowUp" || e.code === "KeyW") {
-        this.onArrowPressed(UP);
-      }
-      if (e.code === "ArrowDown" || e.code === "KeyS") {
-        this.onArrowPressed(DOWN);
-      }
-      if (e.code === "ArrowLeft" || e.code === "KeyA") {
-        this.onArrowPressed(LEFT);
-      }
-      if (e.code === "ArrowRight" || e.code === "KeyD") {
-        this.onArrowPressed(RIGHT);
-      }
-    })
-
-    document.addEventListener("keyup", (e) => {
-      // Also check for dedicated direction list
-      if (e.code === "ArrowUp" || e.code === "KeyW") {
-        this.onArrowReleased(UP);
-      }
-      if (e.code === "ArrowDown" || e.code === "KeyS") {
-        this.onArrowReleased(DOWN);
-      }
-      if (e.code === "ArrowLeft" || e.code === "KeyA") {
-        this.onArrowReleased(LEFT);
-      }
-      if (e.code === "ArrowRight" || e.code === "KeyD") {
-        this.onArrowReleased(RIGHT);
-      }
-    })
+    this.EnableInput()
   }
 
   get direction() {
     return this.heldDirections[0];
   }
 
+
+  EnableInput() {
+    document.addEventListener("keydown", this.KeyDown);
+    document.addEventListener("keyup", this.KeyUp);
+  }
+  DisableInput(){
+    document.removeEventListener("keydown", this.KeyDown)
+    document.removeEventListener("keyup", this.KeyUp)
+  }
+  
   onArrowPressed(direction) {
-    // Add this arrow to the queue if it's new
     if (this.heldDirections.indexOf(direction) === -1) {
       this.heldDirections.unshift(direction);
     }
@@ -57,7 +50,6 @@ export class Input {
     if (index === -1) {
       return;
     }
-    // Remove this key from the list
     this.heldDirections.splice(index, 1);
   }
 }
