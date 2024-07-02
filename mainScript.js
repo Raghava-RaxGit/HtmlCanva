@@ -1,6 +1,5 @@
-import GameObject from "./Gameobject.js"
-import { Player } from "./Hero.js";
-import { DOWN, LEFT, RIGHT, UP,Input } from "./Input.js";
+import { Player } from "./Player.js";
+import { Input } from "./Input.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -18,9 +17,10 @@ var id = null
 
 const StartGameLoop = ()=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(input.direction){
-        hero.direction = hero.dirMap[input.direction];
+    if(input.direction!== undefined){
+        hero.dir = input.direction;
         hero.state.moving = true;
+        //console.log(input.direction);
     }
     else{
         hero.state.moving = false;
