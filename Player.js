@@ -1,4 +1,4 @@
-import {GameObject} from "./GameObject.js"
+import {GameObject} from "/GameObject.js"
 export class Player extends GameObject {
     constructor(config){
         super(config);
@@ -6,6 +6,8 @@ export class Player extends GameObject {
             "moving":false
         }
         this.dir ="DOWN"
+        this.currentDest = null
+        this.destinationReach =false;
         this.movementProgress = 0;
         this.dirMap = {
             "UP": ["y",-1],
@@ -14,18 +16,28 @@ export class Player extends GameObject {
             "RIGHT": ["x",1]
         }
     }
-    updateMovement(){
-        if(this.movementProgress > 0){
-            const [prop,val] = this.dirMap[this.dir];
-            this.sprite[prop] +=val;
-            this.movementProgress-=1;
-            console.log("is moving",this.movementProgress);
-        }
-        this.checkState()
-    }
-    checkState(){
-        if(this.movementProgress === 0 && this.state.moving){
+    moveTowards(dir){
+        if(this.destinationReach){
+            this.sprite.setAnimation(dir+"-walk");
+            this.currentDest = dir
+            this.destinationReach= false
             this.movementProgress = 16;
         }
+        this.state.moving = true;
     }
+    updateMovement(){
+        if(this.movementProgress > 0 && !this.destinationReach){
+            const [prop,val] = this.dirMap[this.currentDest];
+            this.sprite[prop] +=val;
+            this.movementProgress-=1;
+        }
+        if(this.movementProgress === 0){
+            if(!this.state.moving){
+                this.sprite.setAnimation("default");
+            }
+            this.state.moving =false;
+            this.destinationReach = true;
+        }
+    }
+    
 }

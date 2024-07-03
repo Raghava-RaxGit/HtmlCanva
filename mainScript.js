@@ -8,7 +8,15 @@ map.src = "./res/ground.png";
 const hero = new Player({
     x: 0,
     y: 0,
-    src:"./res/hero-sheet.png"
+    src:"./res/hero-sheet.png",
+    animationMap :{
+        "default"     :[[0,0]],
+        "UP-walk"     :[[0,64],[32,64],[64,64]],
+        "DOWN-walk"   :[[2,1],[2,1]],
+        "LEFT-walk"   :[[1,1]],
+        "RIGHT-walk"  :[[1,1]]
+    },
+    currentAnime : "defalut"
 })
  const input = new Input();
 
@@ -18,17 +26,15 @@ var id = null
 const StartGameLoop = ()=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if(input.direction!== undefined){
-        hero.dir = input.direction;
-        hero.state.moving = true;
-        //console.log(input.direction);
+        hero.moveTowards(input.direction);
     }
     else{
-        hero.state.moving = false;
+        
     }
     ctx.drawImage(map,0,0)
     hero.updateMovement();
+    
     hero.sprite.isLoaded && hero.sprite.draw(ctx)
-    console.log("Draw");
     id = requestAnimationFrame(StartGameLoop)
 }
 StartGameLoop()
